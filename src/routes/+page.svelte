@@ -3,6 +3,8 @@
 	import { pokemonsPerPage, resetPaginationState } from "$lib/store";
 	import Searchbar from "$components/Searchbar.svelte";
 	import Marquee from "$components/Marquee.svelte";
+	import CardGrid from "$components/CardGrid.svelte";
+	import Pagination from "$components/Pagination.svelte";
 
 	export let data: PageData;
 	$: ({ pokemons } = data);
@@ -35,3 +37,15 @@
 <Searchbar {searchPokemonByName} />
 
 <Marquee {getPokemonsByType} />
+
+{#if pokemonsToDisplay.length}
+	<CardGrid {pokemonsToDisplay} />
+	<Pagination {totalPages} />
+{:else}
+	<section class="section">
+		<img class="mx-auto" src="/assets/sprites/0.png" alt="No results" />
+		<h3 class="text-2xl font-semibold text-blue-600 text-center">
+			No results...
+		</h3>
+	</section>
+{/if}
